@@ -9,7 +9,6 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
 @Mapper
-@Component(value = "adminMapper")
 public interface adminMapper extends BaseMapper<Admin> {
 
 	@Select("select * from admin where admin_id = #{id} and admin_pwd = #{pwd}")
