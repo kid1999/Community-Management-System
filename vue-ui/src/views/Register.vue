@@ -131,19 +131,19 @@
       to_register: function(formName) {
         let self = this;
         axios.post('/regsiter', {
-          admin_id: this.ruleForm.name,
-          admin_pwd: this.ruleForm.pass,
-          admin_name: this.ruleForm.username,
-          admin_email:this.ruleForm.admin_email,
-          admin_phone:this.ruleForm.admin_phone,
-          admin_qq:this.ruleForm.admin_qq,
-          invitation_code:this.ruleForm.code,
+          adminId: this.ruleForm.name,
+          adminPwd: this.ruleForm.pass,
+          adminName: this.ruleForm.username,
+          adminEmail:this.ruleForm.admin_email,
+          adminPhone:this.ruleForm.admin_phone,
+          adminQq:this.ruleForm.admin_qq,
+          invitationCode:this.ruleForm.code,
         }).then(function (response) {
           let res = response.data;
           if(res['reslut'] === 1){
             self.$router.push("/");
           }else{
-            alert("账号或密码错误！")
+            alert(res['info'])
           }
         }).catch(function (error) {
           console.log(error);

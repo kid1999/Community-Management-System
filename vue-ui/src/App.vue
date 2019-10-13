@@ -1,32 +1,36 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/login">login</router-link> |
-      <router-link to="/register">register</router-link>
-    </div>
-    <router-view/>
+    <el-container>
+
+      <el-header>
+        <Header></Header>
+      </el-header>
+
+      <el-main>
+        <router-view/>
+      </el-main>
+
+      <el-footer>
+        <Footer></Footer>
+      </el-footer>
+
+    </el-container>
   </div>
 </template>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
+
+<script>
+    import Header from "./views/Header";
+    import Footer from "./views/Footer";
+    export default {
+        components: {Footer, Header},
+        computed: {
+            count () {
+                return this.$store.state.count
+            }
+        }
+    }
+</script>

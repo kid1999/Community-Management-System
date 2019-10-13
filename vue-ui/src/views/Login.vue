@@ -74,19 +74,24 @@
       to_login: function(formName) {
         let self = this;
         axios.post('/login', {
-          admin_id: this.ruleForm.name,
-          admin_pwd: this.ruleForm.pass,
+          adminId: this.ruleForm.name,
+          adminPwd: this.ruleForm.pass,
         }).then(function (response) {
           let res = response.data;
           if(res['reslut'] === 1){
+            self.$store.commit('Login');
             self.$router.push("/");
+            self.$message({
+                message: res['info'],
+                type: 'success'
+            });
           }else{
-            alert("账号或密码错误！")
+            self.$message.error(res['info']);
           }
         }).catch(function (error) {
           console.log(error);
         });
-      }
+      },
     }
   }
 </script>

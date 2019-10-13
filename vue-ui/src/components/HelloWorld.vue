@@ -1,6 +1,16 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <el-container v-show="!isLogin">
+      <h1 >{{ msg }}</h1>
+      <el-button>登录</el-button>
+      <el-button>注册</el-button>
+    </el-container>
+
+    <el-container v-show="isLogin">
+
+    </el-container>
+
+
   </div>
 </template>
 
@@ -9,24 +19,16 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
-  }
+  },
+  computed:{
+      isLogin(){
+          return this.$store.state.isLogin;
+      }
+  },
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>
