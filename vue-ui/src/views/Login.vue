@@ -1,6 +1,6 @@
 <template>
   <el-row :gutter="0">
-    <el-col :span="6" :offset="7">
+    <el-col :span="6" :offset="6">
       <h1 style="text-align: center">登录</h1>
       <div class="grid-content bg-purple">
         <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">

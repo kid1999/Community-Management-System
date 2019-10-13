@@ -1,42 +1,41 @@
 <template>
-  <el-row :gutter="20">
-
-    <el-col :span="6" :offset="7">
-      <h1 style="text-align: center">注册</h1>
-      <div class="grid-content bg-purple">
-        <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-          <el-form-item label="学号" prop="name">
-            <el-input v-model.number="ruleForm.name"></el-input>
-          </el-form-item>
-          <el-form-item label="姓名" prop="username">
-            <el-input v-model.number="ruleForm.username"></el-input>
-          </el-form-item>
-          <el-form-item label="密码" prop="pass">
-            <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="确认密码" prop="checkPass">
-            <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="手机号码">
-            <el-input v-model="this.ruleForm.admin_phone"></el-input>
-          </el-form-item>
-          <el-form-item label="qq号">
-            <el-input v-model="this.ruleForm.admin_qq"></el-input>
-          </el-form-item>
-          <el-form-item label="邮箱">
-            <el-input v-model="this.ruleForm.admin_email"></el-input>
-          </el-form-item>
-          <el-form-item label="注册邀请码" prop="code">
-            <el-input v-model.number="ruleForm.code"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-            <el-button @click="resetForm('ruleForm')">重置</el-button>
-          </el-form-item>
-        </el-form>
-      </div>
-    </el-col>
-  </el-row>
+    <el-row :gutter="20"  :xs="4" :sm="6" :md="8" :lg="9" :xl="11" >
+          <el-col :span="8" :offset="6">
+            <h1 style="text-align: center">注册</h1>
+            <div class="grid-content bg-purple">
+              <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                <el-form-item label="学号" prop="name">
+                  <el-input v-model.number="ruleForm.name"></el-input>
+                </el-form-item>
+                <el-form-item label="姓名" prop="username">
+                  <el-input v-model.number="ruleForm.username"></el-input>
+                </el-form-item>
+                <el-form-item label="密码" prop="pass">
+                  <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="确认密码" prop="checkPass">
+                  <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="手机号码">
+                  <el-input v-model="this.ruleForm.admin_phone"></el-input>
+                </el-form-item>
+                <el-form-item label="qq号">
+                  <el-input v-model="this.ruleForm.admin_qq"></el-input>
+                </el-form-item>
+                <el-form-item label="邮箱">
+                  <el-input v-model="this.ruleForm.admin_email"></el-input>
+                </el-form-item>
+                <el-form-item label="注册邀请码" prop="code">
+                  <el-input v-model.number="ruleForm.code"></el-input>
+                </el-form-item>
+                <el-form-item>
+                  <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+                  <el-button @click="resetForm('ruleForm')">重置</el-button>
+                </el-form-item>
+              </el-form>
+            </div>
+          </el-col>
+    </el-row>
 </template>
 
 <script>
