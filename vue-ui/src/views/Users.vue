@@ -10,9 +10,26 @@
         <editable-cell :text="text" @change="onCellChange(record.key, 'name', $event)"/>
       </template>
 
-      <template slot="age" slot-scope="text, record">
-        <editable-cell :text="text" @change="onCellChange(record.key, 'age', $event)"/>
+      <template slot="id" slot-scope="text, record">
+        <editable-cell :text="text" @change="onCellChange(record.key, 'id', $event)"/>
       </template>
+
+      <template slot="phone" slot-scope="text, record">
+        <editable-cell :text="text" @change="onCellChange(record.key, 'phone', $event)"/>
+      </template>
+
+      <template slot="class" slot-scope="text, record">
+        <editable-cell :text="text" @change="onCellChange(record.key, 'class', $event)"/>
+      </template>
+
+      <template slot="qq" slot-scope="text, record">
+        <editable-cell :text="text" @change="onCellChange(record.key, 'qq', $event)"/>
+      </template>
+
+      <template slot="email" slot-scope="text, record">
+        <editable-cell :text="text" @change="onCellChange(record.key, 'email', $event)"/>
+      </template>
+
     <!--   删除   -->
       <template slot="operation" slot-scope="text, record">
         <a-popconfirm
@@ -27,6 +44,7 @@
   </div>
 </template>
 <script>
+  import axios from 'axios';
   import EditableCell from '../components/EditableCell';
   export default {
     components: {
@@ -35,31 +53,50 @@
     data () {
       return {
         dataSource: [{
-          key: '0',
-          name: 'Edward King 0',
-          age: '32',
-          address: 'London, Park Lane no. 0',
-        }, {
-          key: '1',
-          name: 'Edward King 1',
-          age: '32',
-          address: 'London, Park Lane no. 1',
+          userId: '01234541345',
+          userName: 'Edward King 0',
+          userClass: '32',
+          userQq: '456125411',
+          userPhone:'12345641',
+          userCreateTime:'2019-10-13T00:00:00.000+0000',
+          userEmail:'dada@qq.com',
         }],
         count: 2,
         columns: [{
-          title: 'name',
-          dataIndex: 'name',
-          width: '30%',
+          title: '姓名',
+          dataIndex: 'userName',
           scopedSlots: { customRender: 'name' },
         }, {
-          title: 'age',
-          dataIndex: 'age',
-          scopedSlots: { customRender: 'age' },
+          title: '学号',
+          dataIndex: 'userId',
+          scopedSlots: { customRender: 'id' },
         }, {
-          title: 'address',
-          dataIndex: 'address',
-        }, {
-          title: 'operation',
+          title: '班级',
+          dataIndex: 'userClass',
+          scopedSlots: { customRender: 'class' },
+        },
+          {
+            title: '手机号',
+            dataIndex: 'userPhone',
+            scopedSlots: { customRender: 'phone' },
+          },
+          {
+            title: 'QQ',
+            dataIndex: 'userQq',
+            scopedSlots: { customRender: 'qq' },
+          },
+          {
+            title: 'Email',
+            dataIndex: 'userEmail',
+            scopedSlots: { customRender: 'email' },
+          },
+          {
+            title: '创建时间',
+            dataIndex: 'userCreateTime',
+            scopedSlots: { customRender: 'time' },
+          },
+          {
+          title: '操作',
           dataIndex: 'operation',
           scopedSlots: { customRender: 'operation' },
         }],
@@ -69,6 +106,8 @@
       onCellChange (key, dataIndex, value) {
         const dataSource = [...this.dataSource]
         const target = dataSource.find(item => item.key === key)
+        console.info(target);
+        console.info(target['userCreateTime'])
         if (target) {
           target[dataIndex] = value
           this.dataSource = dataSource
@@ -84,13 +123,39 @@
       handleAdd () {
         const { count, dataSource } = this
         const newData = {
-          key: count,
-          name: `Edward King ${count}`,
-          age: 32,
-          address: `London, Park Lane no. ${count}`,
+          userId: '必填',
+          userName: '必填',
+          userClass: '必填',
+          userQq: '必填',
+          userPhone:'',
+          userCreateTime:'',
+          userEmail:'',
         }
         this.dataSource = [...dataSource, newData]
-        this.count = count + 1
+        this.count = count + 1;
+      },
+      to_update: function(target) {
+        let self = this;
+        axios.post('/userUpdate', {
+          userId:target['id'],
+          userName:target['name'],
+          userEmail:target['email'],
+          userPhone:target['phone'],
+          userQq:target['qq'],
+          userClass:target['class'],
+        }).then(function (response) {
+          let res = response.data;
+          if(res['reslut'] === 1){
+            self.$message({
+              message: res['info'],
+              type: 'success'
+            });
+          }else{
+            self.$message.error(res['info']);
+          }
+        }).catch(function (error) {
+          console.log(error);
+        });
       },
     },
   }
