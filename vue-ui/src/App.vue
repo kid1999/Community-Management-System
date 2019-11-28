@@ -9,7 +9,7 @@
           <a-menu-item key="/">
             <a-icon type="pie-chart" />
             <span>主页</span>
-            <RouterLink to="/">hello</RouterLink>
+            <RouterLink to="/">主页</RouterLink>
           </a-menu-item>
 
           <a-menu-item key="2" >
@@ -18,17 +18,14 @@
             <RouterLink to="users">users</RouterLink>
           </a-menu-item>
 
-          <a-sub-menu
-            key="sub1"
-          >
+          <a-sub-menu key="sub1">
             <span slot="title"><a-icon type="user" /><span>用户</span></span>
-            <a-menu-item key="3">注册<RouterLink to="register">注册</RouterLink></a-menu-item>
-            <a-menu-item key="login">登录<RouterLink to="login">登录</RouterLink></a-menu-item>
-            <a-menu-item key="adduser">添加用户<RouterLink to="adduser">添加用户</RouterLink></a-menu-item>
+            <a-menu-item key="3"><RouterLink to="register">添加会员</RouterLink></a-menu-item>
+            <a-menu-item key="login"><RouterLink to="login">登录</RouterLink></a-menu-item>
           </a-sub-menu>
           <a-sub-menu key="sub2">
-            <span slot="title"><a-icon type="team" /><span>Team</span></span>
-            <a-menu-item key="6">Team 1</a-menu-item>
+            <span slot="title"><a-icon type="team" /><span>超级管理员</span></span>
+            <a-menu-item key="addAdmin"><RouterLink to="addAdmin">添加管理员</RouterLink></a-menu-item>
             <a-menu-item key="8">Team 2</a-menu-item>
           </a-sub-menu>
           <a-menu-item key="9">

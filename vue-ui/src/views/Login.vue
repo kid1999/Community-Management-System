@@ -22,6 +22,7 @@
 
 <script>
   import axios from 'axios';
+  import qs from 'qs';
   export default {
     name: "login",
     data() {
@@ -73,18 +74,16 @@
       },
       to_login: function(formName) {
         let self = this;
-        axios.post('/login', {
-          adminId: this.ruleForm.name,
-          adminPwd: this.ruleForm.pass,
-        }).then(function (response) {
+        let data = {
+            "adminId": self.ruleForm.name + "",
+            "adminPwd": self.ruleForm.pass,
+        };
+        axios.post('/login', qs.stringify(data), {headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then(function (response) {
           let res = response.data;
           if(res['reslut'] === 1){
             self.$store.commit('Login');
             self.$router.push("/");
-            self.$message({
-                message: res['info'],
-                type: 'success'
-            });
+            self.$message.success({message: res['info']});
           }else{
             self.$message.error(res['info']);
           }

@@ -13,6 +13,10 @@
             <el-input v-model="ruleForm.userName"></el-input>
           </el-form-item>
 
+          <el-form-item label="密码" prop="userPwd">
+            <el-input type="password" v-model="ruleForm.userPwd"></el-input>
+          </el-form-item>
+
           <el-form-item label="班级" prop="userClass">
             <el-input v-model="ruleForm.userClass"></el-input>
           </el-form-item>
@@ -43,7 +47,7 @@
 <script>
     import axios from 'axios';
     export default {
-        name: "adduser",
+        name: "addAdmin",
         data() {
             //校验方法
             var checkId = (rule, value, callback) => {
@@ -62,6 +66,10 @@
                 if (!value) {return callback(new Error('班级不能为空'));}
                 else {callback();}
             };
+            var checkPwd = (rule, value, callback) => {
+                if (!value) {return callback(new Error('密码不能为空'));}
+                else {callback();}
+            };
             return {
                 ruleForm: {
                     userId:'',
@@ -70,6 +78,7 @@
                     userPhone:'',
                     userQq:'',
                     userClass:'',
+                    userPwd:''
                 },
                 //规则
                 rules: {
@@ -84,6 +93,9 @@
                     ],
                     userClass: [
                         {validator: checkClass, trigger: 'blur'}
+                    ],
+                    userPwd: [
+                        {validator: checkPwd, trigger: 'blur'}
                     ]
                 }
             };
@@ -93,7 +105,6 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        console.info(this.ruleForm);
                         this.to_login();
                     } else {
                         this.$message({
@@ -110,15 +121,16 @@
             // 交互
             to_login: function(formName) {
                 let self = this;
-                axios.post('/editUser', {
-                    userId:self.ruleForm.userId,
-                    userName:self.ruleForm.userName,
-                    userEmail:self.ruleForm.userEmail,
-                    userPhone:self.ruleForm.username,
-                    userQq:self.ruleForm.userPhone,
-                    userClass:self.ruleForm.userClass,
+                axios.post('/admin', {
+                    adminId:self.ruleForm.userId,
+                    adminName:self.ruleForm.userName,
+                    adminEmail:self.ruleForm.userEmail,
+                    adminPhone:self.ruleForm.username,
+                    adminQq:self.ruleForm.userPhone,
+                    adminPwd:self.ruleForm.userPwd,
                 }).then(function (response) {
-                    let res = response.data;
+                    var res = response.data;
+                    console.info(res);
                     if(res['reslut'] === 1){
                         self.$router.push("/");
                         self.$message({

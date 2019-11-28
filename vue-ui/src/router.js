@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   mode: 'history',
@@ -29,10 +29,12 @@ export default new Router({
       component: () => import('./views/Users')
     },
     {
-      path: '/adduser',
-      name: 'adduser',
-      component: () => import('./views/AddUser')
+      path: '/addAdmin',
+      name: 'addAdmin',
+      component: () => import('./views/addAdmin'),
+      meta: { requiresAuth: true }
     }
 
-  ]
+  ],
+
 })

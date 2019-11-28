@@ -7,6 +7,7 @@ export default new Vuex.Store({
     // state 类似 data
     //这里面写入数据
     isLogin:false,
+    data:{},
   },
   getters:{
     // getters 类似 computed
@@ -21,7 +22,7 @@ export default new Vuex.Store({
     },
     Logout(state){
       state.isLogin = false;
-    }
+    },
   },
   actions:{
     // actions 类似methods
