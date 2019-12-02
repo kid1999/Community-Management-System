@@ -19,21 +19,26 @@ export default new Router({
       component: () => import('./views/Login.vue')
     },
     {
-      path: '/register',
-      name: 'register',
-      component: () => import('./views/Register')
+      path: '/addMember',
+      name: 'addMember',
+      component: () => import('./views/admin/addMember')
     },
     {
       path: '/users',
       name: 'users',
-      component: () => import('./views/Users')
+      component: () => import('./views/admin/Users')
     },
     {
       path: '/addAdmin',
       name: 'addAdmin',
-      component: () => import('./views/addAdmin'),
+      component: () => import('./views/super/addAdmin'),
       meta: { requiresAuth: true }
-    }
+    },
+    {
+      path: '/members',
+      name: 'members',
+      component: () => import('./views/admin/Members')
+    },
 
   ],
 

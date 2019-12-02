@@ -47,7 +47,7 @@
 </template>
 <script>
     import axios from 'axios';
-    import EditableCell from '../components/EditableCell';
+    import EditableCell from '../../components/EditableCell';
     export default {
         components: {
             EditableCell,
@@ -146,13 +146,15 @@
                 const { count, dataSource } = this;
                 const newData = {
                     key:this.count+1,
-                    userId: '必填',
-                    userName: '必填',
-                    userClass: '必填',
-                    userQq: '必填',
-                    userPhone:'',
-                    userCreateTime:'',
-                    userEmail:'',
+                    memId: '必填',
+                    memName: '必填',
+                    memGender: '必填',
+                    memPhone: '必填',
+                    memQq:'',
+                    memClass:'',
+                    memCollege:'',
+                    memJoinTime:'',
+                    memPayCheck:'',
                 };
                 this.dataSource = [...dataSource, newData];
                 this.count = count + 1;

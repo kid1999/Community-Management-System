@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.Filter;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -42,15 +43,20 @@ public class ShiroConfig {
 		 */
 		Map<String, String> filterMap = new LinkedHashMap<>();
 //		filterMap.put("/**","anon");
-		filterMap.put("/login", "authc");
+//		filterMap.put("/login", "authc");
 //		filterMap.put("/error","anon");
 //		filterMap.put("/logout","logout");
 //
 //		// 授权过滤器
-//		filterMap.put("/admin","roles[admin]");
+		filterMap.put("/addAdmin","roles[admin]");
 //		filterMap.put("/**", "authc");
 
+		// 注入 拦截器和认证
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
+		Map<String,Filter> filter = new HashMap<>();
+	    filter.put("authc",new AuthenticationFilter());
+		filter.put("logout",new MyLogoutFilter());
+		shiroFilterFactoryBean.setFilters(filter);
 		return shiroFilterFactoryBean;
 	}
 

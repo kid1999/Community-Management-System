@@ -17,14 +17,14 @@ import javax.persistence.Id;
 public class Member {
 	@Id
 	@Column(nullable = false,unique = true)
-	private int memId;
+	private String memId;
 	private String memName;
-	private String menGender;
+	private String memGender;
 	private String memPhone;
 	private String memQq;
 	private String memClass;
 	private String memCollege;
-	private String memJoinTime;
-	private int memPayCheck;
+	private int memJoinTime;
+	private String memPayCheck;
 
 }

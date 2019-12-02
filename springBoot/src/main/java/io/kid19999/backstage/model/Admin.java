@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 
 /**
  * @author kid1999
- * @title: Manager
+ * @title: 管理员
  * @date 2019/11/24 9:53
  */
 

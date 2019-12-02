@@ -31,18 +31,18 @@ public class SuperAdminController {
 		String password = someUtils.md5(admin.getAdminPwd(),admin.getAdminId());		//加密密码
 		admin.setAdminPwd(password);
 		Result result = new Result();
-		if(!admin.getAdminId().isEmpty() || !admin.getAdminPwd().isEmpty()){
+		if(admin.getAdminId().isEmpty() || admin.getAdminPwd().isEmpty()){
 			result.setInfo("账号|密码不能为空");
-			result.setReslut(0);
+			result.setStatusCode(0);
 		}else if(adminRepository.findByAdminId(admin.getAdminId()) == null){
 			admin.setAdminRole("admin");
 			adminRepository.save(admin);
 			result.setInfo("添加成功");
-			result.setReslut(1);
+			result.setStatusCode(1);
 		}
 		else{
 			result.setInfo("账号已存在！");
-			result.setReslut(0);
+			result.setStatusCode(0);
 		}
 		return result;
 	}

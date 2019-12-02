@@ -15,13 +15,15 @@
           <a-menu-item key="2" >
             <a-icon type="desktop" />
             <span>会员信息</span>
-            <RouterLink to="users">users</RouterLink>
+            <RouterLink to="members">users</RouterLink>
           </a-menu-item>
 
           <a-sub-menu key="sub1">
             <span slot="title"><a-icon type="user" /><span>用户</span></span>
-            <a-menu-item key="3"><RouterLink to="register">添加会员</RouterLink></a-menu-item>
+            <a-menu-item key="addMember"><RouterLink to="addMember">添加会员</RouterLink></a-menu-item>
+            <a-menu-item key="users"><RouterLink to="users">会员信息</RouterLink></a-menu-item>
             <a-menu-item key="login"><RouterLink to="login">登录</RouterLink></a-menu-item>
+            <a-menu-item key="logout" v-on:click="logout">退出登录</a-menu-item>
           </a-sub-menu>
           <a-sub-menu key="sub2">
             <span slot="title"><a-icon type="team" /><span>超级管理员</span></span>
@@ -64,6 +66,8 @@
 </style>
 
 <script>
+    import router from "./router";
+
     export default {
       data() {
         return {
@@ -74,6 +78,22 @@
         count () {
           return this.$store.state.count
         }
-      }
+      },
+        methods:{
+            logout(){
+              let self = this;
+              var sessionId = window.$cookies.get("sessionId");
+              if(sessionId != null){
+                  this.$axios.get("/logout",{params:{sessionId:sessionId}});
+                  self.$message.success({message:"注销成功"});
+                  window.$cookies.remove("role");
+                  window.$cookies.remove("sessionId");
+                  this.$router.push("/");
+              }else{
+                  self.$message.error({message:"注销失败"});
+              }
+
+            }
+        }
     }
 </script>

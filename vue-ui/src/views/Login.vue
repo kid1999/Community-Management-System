@@ -21,7 +21,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
   import qs from 'qs';
   export default {
     name: "login",
@@ -78,12 +77,15 @@
             "adminId": self.ruleForm.name + "",
             "adminPwd": self.ruleForm.pass,
         };
-        axios.post('/login', qs.stringify(data), {headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then(function (response) {
+        this.$axios.post('/login', qs.stringify(data), {headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then(function (response) {
           let res = response.data;
           if(res['reslut'] === 1){
             self.$store.commit('Login');
+            let arr = res['info'].split(' ');
+            window.$cookies.set("role",arr[1]);
+            window.$cookies.set("sessionId",arr[0]);
             self.$router.push("/");
-            self.$message.success({message: res['info']});
+            self.$message.success({message:"登录成功"});
           }else{
             self.$message.error(res['info']);
           }

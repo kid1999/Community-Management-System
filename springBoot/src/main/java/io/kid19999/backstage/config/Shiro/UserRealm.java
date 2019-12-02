@@ -2,7 +2,6 @@ package io.kid19999.backstage.config.Shiro;
 
 import io.kid19999.backstage.model.Admin;
 import io.kid19999.backstage.repository.AdminRepository;
-import io.kid19999.backstage.utils.SomeUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -22,8 +21,6 @@ public class UserRealm extends AuthorizingRealm {
 	@Autowired
 	private AdminRepository adminRepository;
 
-	@Autowired
-	private SomeUtils someUtils;
 
 	// 授权执行逻辑
 	@Override
