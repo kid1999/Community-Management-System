@@ -39,6 +39,11 @@ export default new Router({
       name: 'members',
       component: () => import('./views/admin/Members')
     },
+    {
+      path: '/test',
+      name: 'test',
+      component: () => import('./views/Test')
+    },
 
   ],
 
