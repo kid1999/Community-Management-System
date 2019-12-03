@@ -11,9 +11,9 @@
       <el-table-column label="QQ" prop="memQq"></el-table-column>
       <el-table-column label="会费是否支付" prop="memPayCheck"></el-table-column>
       <el-table-column align="right">
-        <template slot="header" slot-scope="scope">
-        <el-input v-model="search" placeholder="输入关键字搜索" @blur="to_search()"/>
-      </template>
+        <template slot="header" size="mini" slot-scope="scope">
+          <el-input v-model="search" size="mini" placeholder="输入姓名|学号搜索" @blur="to_search()"/>
+        </template>
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
@@ -22,6 +22,10 @@
     </el-table>
     <div align="center">
       <el-button @click="dialogFormVisible = true" icon="el-icon-add" >会员添加</el-button>
+    </div>
+
+    <div class="block" style="margin-top:15px;">
+      <el-pagination align='center' @current-change="handleCurrentChange" :current-page="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="total"></el-pagination>
     </div>
 
 
@@ -123,7 +127,10 @@
                 dialogVisible:false,
                 formLabelWidth: '120px',
                 changeIndex:-1, //修改列
-                deleteIndex:-1,
+                deleteIndex:-1, //删除列
+                currentPage: 1, // 当前页码
+                total: 0,  // 总条数
+                pageSize: 10,   // 每页的数据条数
                 search:'',
                 colleges: [],
                 form: {},
@@ -219,7 +226,24 @@
                     self.tableData = data;
                     return response.data;
                 })
-            }
+            },
+
+            // get page
+            to_getPage(){
+                var self = this;
+                this.$axios.get("/member?currentPage=" + self.currentPage + "&pageSize=" + self.pageSize).then((response)=>{
+                    let data = response.data;
+                    console.info(data);
+                    self.tableData = data.content;
+                    self.total = data.totalElements;
+                });
+            },
+
+            handleCurrentChange(val) {
+                var self = this;
+                this.currentPage = val;
+                self.to_getPage();
+            },
         },
         // 初始化得到 学院信息
         created:function getmemColleges(){
@@ -235,12 +259,11 @@
 
         mounted() {
             var self = this;
-            this.$axios.get("/member").then((response)=>{
+            this.$axios.get("/member?currentPage=" + self.currentPage + "&pageSize=" + self.pageSize).then((response)=>{
                 let data = response.data;
-                console.info(data);
-                self.tableData = data;
-                return response.data;
-            })
+                self.tableData = data.content;
+                self.total = data.totalElements;
+            });
         }
 
     }

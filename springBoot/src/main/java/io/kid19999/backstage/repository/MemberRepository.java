@@ -24,6 +24,7 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
     void deleteByMemId(String id);
 
 
+
     List<Member> findByMemIdLike(String memId);
 
     @Query(value = "SELECT u FROM Member u WHERE u.memName like ?1 ")

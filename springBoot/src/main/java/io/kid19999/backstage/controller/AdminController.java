@@ -12,6 +12,10 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -89,14 +93,17 @@ public class AdminController {
 	 * 添加会员信息页面
 	 */
 	@GetMapping("/member")
-    List<Member> getmembers(){
-        return memberRepository.findAll();
-    }
+	Page<Member> getmembers(Integer pageSize,
+							Integer currentPage){
+		Pageable pageable = PageRequest.of(currentPage,pageSize,Sort.by("memId"));
+		return memberRepository.findAll(pageable);
+	}
 
+	// 搜索
     @GetMapping("/searchMember")
     List<Member> searchmembers(String search){
 		List<Member> res = memberRepository.findMembersByMemNameLike("%" + search + "%");
-		res.addAll(memberRepository.findByMemIdLike(search));
+		res.addAll(memberRepository.findByMemIdLike("%" + search + "%"));
         return res;
     }
 
